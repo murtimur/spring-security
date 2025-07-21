@@ -1,6 +1,7 @@
 package com.muratyildirim.spring_security.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.muratyildirim.spring_security.user.User;
 
 public class UserDTO {
 	
@@ -12,6 +13,15 @@ public class UserDTO {
 	
 	@JsonIgnore // pasword hashli olsada donmeyelim
 	private String password;
+
+	public UserDTO() {
+	}
+
+	public UserDTO(User user) {
+		this.id = user.getId();
+		this.username = user.getUsername();
+		this.password = user.getPassword();
+	}
 
 	public Integer getId() {
 		return id;

@@ -6,8 +6,10 @@ import com.muratyildirim.spring_security.user.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "app-token")
 public class Token {
 	
 	@Id
