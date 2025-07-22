@@ -22,17 +22,15 @@ public class SecurityConfiguration {
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.cors(cors -> cors.disable()).csrf(csrf -> csrf.disable()).headers(headers -> headers.disable())
-				.authorizeHttpRequests(auth -> auth
-						.requestMatchers(PERMIT_PATHS).permitAll()
-						.anyRequest().authenticated())
-				.httpBasic(httpBasic -> httpBasic.authenticationEntryPoint(new AuthEntryPoint(null)));
+				.authorizeHttpRequests(
+						auth -> auth.requestMatchers(PERMIT_PATHS).permitAll().anyRequest().authenticated());
+		http.httpBasic(httpBasic -> httpBasic.authenticationEntryPoint(new AuthEntryPoint()));
 		http.addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);
 
 		return http.build();
 	}
 
-	public static final String[] PERMIT_PATHS = { 
-			"/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html", "/api/1.0/users", "/api/1.0/auth"
-	};
+	public static final String[] PERMIT_PATHS = { "/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html",
+			"/api/1.0/users", "/api/1.0/auth" };
 
 }
