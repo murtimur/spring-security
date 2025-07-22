@@ -23,14 +23,14 @@ public class SecurityConfiguration {
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.cors(cors -> cors.disable()).csrf(csrf -> csrf.disable()).headers(headers -> headers.disable())
 				.authorizeHttpRequests(
-						auth -> auth.requestMatchers(PERMIT_PATHS).permitAll().anyRequest().authenticated());
+						auth -> auth.requestMatchers(PERMIT_ENDPOINT).permitAll().anyRequest().authenticated());
 		http.httpBasic(httpBasic -> httpBasic.authenticationEntryPoint(new AuthEntryPoint()));
 		http.addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);
 
 		return http.build();
 	}
 
-	public static final String[] PERMIT_PATHS = { "/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html",
+	public static final String[] PERMIT_ENDPOINT = { "/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html",
 			"/api/1.0/users", "/api/1.0/auth" };
 
 }
